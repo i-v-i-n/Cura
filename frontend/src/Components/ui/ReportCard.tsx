@@ -14,7 +14,7 @@ function ReportCard(props: ReportCardProps) {
     return (
         <div className={`rounded-lg p-4 m-4 ${severityColors[props.severity]}`}>
             <h2 className="text-xl font-bold mb-2 font-mono flex items-center">
-                [{props.date}]
+                [{new Date(props.date).toISOString().split('T')[0]}]
                 <span className="bg-black text-white px-1 rounded">
                     {props.severity}
                 </span>

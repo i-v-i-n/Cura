@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import VoiceButton from "./VoiceButton";
+import VoiceButton from "../ui/VoiceButton";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
-import SendButton from "./SendButton";
+import SendButton from "../ui/SendButton";
 import Footer from "./Footer";
-import api from "../api/api";
+import api from "../../api/api";
 
 function HeroSection() {
     const { transcript, listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
@@ -42,7 +42,7 @@ function HeroSection() {
     return (
         <>
             <div className="p-8 rounded-lg font-outfit">
-                <h2 className="text-2xl font-bold mb-4 text-gray-500">
+                <h2 className="text-3xl font-bold mb-4 text-red-400">
                     Tell us what’s <span className="text-black">bothering</span> you.
                 </h2>
 

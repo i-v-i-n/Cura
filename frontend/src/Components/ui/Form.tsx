@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import api from "../api/api";
+import api from "../../api/api";
+import { toast } from "react-toastify";
 
 function Form({ type }: { type: "login" | "signup" }) {
  const navigate=useNavigate()
@@ -38,7 +39,14 @@ function Form({ type }: { type: "login" | "signup" }) {
               email: formData.email,
             };
 
-      const res = await api.post(`/api/user/${type}`, payload);
+      const res = await toast.promise(
+        api.post(`api/user/${type}`, payload),
+        {
+          pending:"Please wait, it may take a moment!",
+          success: `${type === "login" ? "Logged in" : "Signed up"} successfully!`,
+          error: `Failed to ${type === "login" ? "log in" : "sign up"}. Please try again.`,
+        }
+      );
       localStorage.setItem("token",res.data.token)
       localStorage.setItem("user",JSON.stringify(res.data.user))
       navigate("/")

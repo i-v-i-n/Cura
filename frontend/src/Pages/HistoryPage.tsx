@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import Navbar from "../Components/Navbar"
-import ReportCard from "../Components/ReportCard"
+import Navbar from "../Components/ui/Navbar"
+import ReportCard from "../Components/ui/ReportCard"
 import api from "../api/api"
 
 function HistoryPage(){

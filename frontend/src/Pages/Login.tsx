@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import Form from "../Components/Form";
-import Navbar from "../Components/Navbar";
+import Form from "../Components/ui/Form";
+import Navbar from "../Components/ui/Navbar";
 
 function Login() {
     const navbarRef = useRef(null);
