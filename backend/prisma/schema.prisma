@@ -22,13 +22,15 @@ model User{
   name String
   username String @unique
   email String @unique
+  phone String @default("0000000000")
+  city String @default("Antartica")
   password String
 
   record History[]
 }
 model History{
   id String @id @default(uuid())
-  description String
+  description String 
   date DateTime @default(now())
   severity Scale @default(LOW)
   uid String

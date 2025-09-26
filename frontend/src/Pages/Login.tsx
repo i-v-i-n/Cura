@@ -30,7 +30,7 @@ function Login() {
     return (
         <div ref={containerRef}>
             <div ref={navbarRef}>
-                <Navbar username="JohnDoe" type="auth" />
+                <Navbar type="auth" />
             </div>
             <div
                 ref={formRef}

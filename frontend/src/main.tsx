@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import Login from './Pages/Login.tsx'
 import Signup from './Pages/Signup.tsx'
 import HomePage from './Pages/HomePage.tsx'
+import HistoryPage from './Pages/HistoryPage.tsx'
 
 const router=createBrowserRouter([
   {
@@ -16,6 +17,9 @@ const router=createBrowserRouter([
   },{
     path:"/",
     Component:HomePage
+  },{
+    path:"/history",
+    Component:HistoryPage
   }
 ])
 

@@ -2,6 +2,14 @@ import type { Request, Response } from "express";
 import prisma from "../constants/prisma.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
+
+declare global {
+    namespace Express {
+        interface Request {
+            user?: string;
+        }
+    }
+}
 interface loginDetails{
     username:string
     password:string
@@ -41,6 +49,7 @@ export async function loginUser(req:Request,res:Response){
         return res.status(200).json({
             status:"success",
             message:`Welcome back ${details.name}`,
+            user:details,
             token:token
         })
     }catch(e){
@@ -79,6 +88,31 @@ export async function signupUser(req:Request,res:Response){
         return res.status(400).json({
             status:"fail",
             message:e instanceof Error? e.message:"Something went wrong!"
+        })
+    }
+}
+export async function getHistory(req:Request,res:Response){
+    const uid=req.user
+    if(!uid){
+        return res.status(400).json({
+            status:"fail",
+            message:"User id not-found"
+        })
+    }
+    try{
+        const history=await prisma.history.findMany({
+            where:{
+                uid: uid!
+            }
+        })
+        return res.status(200).json({
+            status:"success",
+            history:history
+        })
+    }catch(e){
+        return res.status(400).json({
+            status:'fail',
+            message:e instanceof Error? e.message : "Something went wrong!"
         })
     }
 }
