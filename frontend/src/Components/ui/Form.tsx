@@ -4,12 +4,14 @@ import api from "../../api/api";
 import { toast } from "react-toastify";
 
 function Form({ type }: { type: "login" | "signup" }) {
- const navigate=useNavigate()
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: "",
     username: "",
     email: "",
     password: "",
+    city: "",
+    phoneno:""
   });
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -27,28 +29,28 @@ function Form({ type }: { type: "login" | "signup" }) {
       const payload =
         type === "login"
           ? {
-              username: formData.username,
-              password: formData.password,
-              ...(formData.email && { email: formData.email }), // optional
-              ...(formData.name && { name: formData.name }), // optional
-            }
+            username: formData.username,
+            password: formData.password,
+            ...(formData.email && { email: formData.email }), // optional
+            ...(formData.name && { name: formData.name }), // optional
+          }
           : {
-              username: formData.username,
-              password: formData.password,
-              name: formData.name,
-              email: formData.email,
-            };
+            username: formData.username,
+            password: formData.password,
+            name: formData.name,
+            email: formData.email,
+          };
 
       const res = await toast.promise(
         api.post(`api/user/${type}`, payload),
         {
-          pending:"Please wait, it may take a moment!",
+          pending: "Please wait, it may take a moment!",
           success: `${type === "login" ? "Logged in" : "Signed up"} successfully!`,
           error: `Failed to ${type === "login" ? "log in" : "sign up"}. Please try again.`,
         }
       );
-      localStorage.setItem("token",res.data.token)
-      localStorage.setItem("user",JSON.stringify(res.data.user))
+      localStorage.setItem("token", res.data.token)
+      localStorage.setItem("user", JSON.stringify(res.data.user))
       navigate("/")
     } catch (err) {
       console.error("Error submitting form:", err);
@@ -56,10 +58,10 @@ function Form({ type }: { type: "login" | "signup" }) {
   }
 
   return (
-    <div className="p-8 rounded-lg w-96 font-outfit">
-      <p className="text-2xl font-bold">
+    <div className="p-8 rounded-lg font-outfit">
+      <p className="text-2xl font-bold max-w-80">
         {type === "signup"
-          ? "Sign up for guidance, clarity, and peace of mind."
+          ? "Sign up for guidance,clarity, and peace of mind."
           : "Welcome back! Your health, just a click away."}
       </p>
       <br />
@@ -95,13 +97,41 @@ function Form({ type }: { type: "login" | "signup" }) {
         </div>
 
         {type === "signup" && (
+          <div className="flex flex-row gap-3">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="email">email</label>
+              <input
+                type="email"
+                placeholder="john.doe@example.com"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="border border-gray-300 p-2 rounded-md"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label htmlFor="phoneno">Phone no:</label>
+              <input
+                type="text"
+                placeholder="Eg. +91 9999999999"
+                id="phoneno"
+                name="phoneno"
+                value={formData.email}
+                onChange={handleChange}
+                className="border border-gray-300 p-2 rounded-md"
+              />
+            </div>
+          </div>
+        )}
+        {type === "signup" && (
           <div className="flex flex-col gap-2">
-            <label htmlFor="email">email</label>
+            <label htmlFor="city">Enter your city</label>
             <input
-              type="email"
-              placeholder="john.doe@example.com"
-              id="email"
-              name="email"
+              type="text"
+              placeholder="Eg. Kuttikanam"
+              id="city"
+              name="city"
               value={formData.email}
               onChange={handleChange}
               className="border border-gray-300 p-2 rounded-md"

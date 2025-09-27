@@ -16,7 +16,9 @@ interface loginDetails{
 }
 interface signUpDetails extends loginDetails{
     name:string,
-    email:string
+    email:string,
+    phoneno:string,
+    city:string
 }
 export async function loginUser(req:Request,res:Response){
     const reqBody:loginDetails=req.body
@@ -62,7 +64,7 @@ export async function loginUser(req:Request,res:Response){
 
 export async function signupUser(req:Request,res:Response){
     const details:signUpDetails=req.body
-    if(!details||!details.name||!details.username||!details.email||!details.password){
+    if(!details||!details.name||!details.username||!details.email||!details.password || !details.city || !details.phoneno){
         return res.status(400).json({
             status:"fail",
             message:"All fields are required"
@@ -74,7 +76,9 @@ export async function signupUser(req:Request,res:Response){
                 username:details.username,
                 name:details.name,
                 email:details.email,
-                password:await bcrypt.hash(details.password,10)
+                password:await bcrypt.hash(details.password,10),
+                phone:details.phoneno,
+                city:details.city
             }
         })
         const token=jwt.sign({userId:user.userId},process.env.JWT_SECRET!)

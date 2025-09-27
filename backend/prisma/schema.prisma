@@ -16,6 +16,7 @@ enum Scale {
   LOW
   MILD
   SEVERE
+  EMERGENCY
 }
 model User{
   userId String @id @default(uuid())

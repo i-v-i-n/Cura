@@ -1,14 +1,15 @@
 interface ReportCardProps {
     description: string;
     date: string;
-    severity: 'LOW' | 'MILD' | 'SEVERE';
+    severity: 'LOW' | 'MILD' | 'SEVERE' | 'EMERGENCY';
 }
 
 function ReportCard(props: ReportCardProps) {
     const severityColors: Record<ReportCardProps["severity"], string> = {
         LOW: "bg-green-100 p-1 rounded-md ml-2",
         MILD: "bg-yellow-100 p-1 rounded-md ml-2",
-        SEVERE: "bg-red-100 p-1 rounded-md ml-2",
+        SEVERE: "bg-red-400 p-1 rounded-md ml-2 text-white",
+        EMERGENCY: "bg-red-600 text-white p-1 rounded-md ml-2 text-white"
     };
 
     return (
@@ -19,7 +20,7 @@ function ReportCard(props: ReportCardProps) {
                     {props.severity}
                 </span>
             </h2>
-            <p className="text-gray-700 mb-4">{props.description}</p>
+            <p className="mb-4">{props.description}</p>
         </div>
     );
 }

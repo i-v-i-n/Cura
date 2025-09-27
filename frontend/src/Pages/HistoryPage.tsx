@@ -28,7 +28,7 @@ function HistoryPage(){
             <div>
                 <p className="text-2xl font-bold">Your Report is Here:</p>
             </div>
-            <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 overflow-y-auto">
             {loading ? <p>Loading...</p> :
                 history.map((report: any, idx: number) => (
                     <ReportCard key={idx} description={report.description} date={report.date} severity={report.severity} />

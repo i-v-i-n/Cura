@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import { useNavigate } from "react-router";
 import HeroSection from "../Components/layout/HeroSection";
 import Navbar from "../Components/ui/Navbar";
 import Header from "../Components/layout/Header";
@@ -9,9 +8,6 @@ function HomePage() {
   const navbarRef = useRef(null);
   const heroRef = useRef(null);
   const containerRef = useRef(null);
-
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -32,15 +28,6 @@ function HomePage() {
     );
   }, []);
 
-  const handleServerCall = async () => {
-    setLoading(true);
-    const response = await fetch("/api/getResult", { method: "POST" });
-    const data = await response.json();
-
-    setLoading(false);
-    navigate("/result", { state: { result: data } });
-  };
-
   return (
     <div ref={containerRef}>
       <img src="hospital.svg" alt="hospital" className="fixed left-[-70px] bottom-5 w-xl opacity-20 z-10"/>
@@ -50,13 +37,6 @@ function HomePage() {
       <Header/>
       <div ref={heroRef} className="flex flex-col items-center justify-center h-[85dvh]">
         <HeroSection />
-        <button
-          onClick={handleServerCall}
-          disabled={loading}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
-        >
-          {loading ? "Loading..." : "Get Result"}
-        </button>
       </div>
     </div>
   );

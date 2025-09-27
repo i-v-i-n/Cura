@@ -6,8 +6,9 @@ import Login from './Pages/Login.tsx'
 import Signup from './Pages/Signup.tsx'
 import HomePage from './Pages/HomePage.tsx'
 import HistoryPage from './Pages/HistoryPage.tsx'
-import ResultCard from './Components/ui/ResultCard.tsx'
 import { ToastContainer, Bounce } from 'react-toastify'
+import Protected from './Components/auth/Protected.tsx'
+import ResultPage from './Pages/ResultPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -18,13 +19,17 @@ const router = createBrowserRouter([
     Component: Signup
   }, {
     path: "/",
-    Component: HomePage
+    Component: () => (
+      <Protected>
+        <HomePage />
+      </Protected>
+    )
   }, {
     path: "/history",
     Component: HistoryPage
   }, {
     path: "/result",
-    Component: ResultCard
+    Component: ResultPage
   }
 ])
 

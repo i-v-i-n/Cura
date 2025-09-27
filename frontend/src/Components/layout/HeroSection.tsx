@@ -4,10 +4,12 @@ import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognitio
 import SendButton from "../ui/SendButton";
 import Footer from "./Footer";
 import api from "../../api/api";
+import { useNavigate } from "react-router";
 
 function HeroSection() {
     const { transcript, listening, browserSupportsSpeechRecognition } = useSpeechRecognition();
     const [text, setText] = useState("")
+    const navigate=useNavigate()
 
     useEffect(() => {
         if (listening) {
@@ -36,7 +38,14 @@ function HeroSection() {
             symptoms:text,
             email:user.email
         })
-        console.log(res.data)
+        const details=res.data.message.split("**")
+        navigate("/result",{state:{result:{
+            summary:details[1],
+            reasoning:details[2],
+            condition:details[0],
+            confidence:details[3]
+        }}});
+        console.log(details)
     }
 
     return (

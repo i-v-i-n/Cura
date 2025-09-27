@@ -9,25 +9,21 @@ function ResultCard() {
     navigate("/", { replace: true });
     return null;
   }
-
   return (
-    <div className="p-4 border rounded-lg shadow-md font-outfit">
-      <div>
-        <h2>Summary</h2>
+    <div className="p-4 font-outfit min-w-80">
+      <div className="mb-4">
+        <h2 className="text-2xl font-bold">Summary</h2>
         <p>{result.summary}</p>
       </div>
-      <div>
-        <h3>Possible remedies</h3>
-        <ul className="list-disc list-inside">
-          {result.remedies.map((remedy: string, i: number) => (
-            <li key={i}>{remedy}</li>
-          ))}
-        </ul>
+      <div className="mb-4">
+        <h3 className="text-xl font-bold">Possible remedies</h3>
+        <p>{result.reasoning}</p>
       </div>
       <div>
-        <p>Condition <span>{result.condition}</span></p>
-        <p>Confidence <span>{result.confidence}</span></p>
+        <p className="font-bold">Condition <span className="font-normal bg-red-300 rounded px-1">{result.condition}</span></p>
+        <p className="font-bold">Confidence <span className="font-normal bg-red-300 rounded px-1">{result.confidence}</span></p>
       </div>
+      <button className="p-3 bg-gray-700 text-white font-bold rounded mt-3.5">Consult the Doctor</button>
     </div>
   );
 }
